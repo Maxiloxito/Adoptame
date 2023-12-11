@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bienvenido a Huachitos</title>
+<style>
+    body, h2, button, div {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+    }
+
+    .wrapper {
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+    }
+
+    .header {
+    background-color: black;
+    color: yellow;
+    padding: 10px;
+    text-align: center;
+    font-size: 24px;
+    position: fixed; 
+    width: 100%; 
+    z-index: 10; 
+    }
+
+    .sidebar {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    width: 200px;
+    position: fixed; 
+    top: 0; 
+    bottom: 0; 
+    overflow-y: auto;
+    z-index: 10; 
+    }
+
+    .content {
+    flex: 1; 
+    background-color: #f4f4f4;
+    padding: 20px;
+    margin-left: 200px;
+    margin-top: 50px; 
+    }
+
+    .footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed; 
+    bottom: 0;
+    width: 100%; 
+    z-index: 10; 
+    }
+
+    .sidebar button {
+    display: block; 
+    width: 100%; 
+    padding: 10px; 
+    margin-bottom: 5px; 
+    background: #444; 
+    color: white;
+    border: none;
+    text-align: left; 
+    cursor: pointer;
+    }
+
+    .sidebar button:hover {
+    background: #555; 
+    }
+
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      text-align: center;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease-in-out;
+    }
+
+    .card:hover {
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .card .animal-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card h3 {
+      margin: 10px 0;
+      color: #333;
+    }
+
+    .card p {
+      color: #666;
+      margin-bottom: 15px;
+    }
+
+</style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <div class="header">
+      Bienvenido
+      <% if current_user.is_a?(Organizacion) %>
+        <%= link_to 'Crear Animal', new_animal_path %>
+      <% end %>    
+    </div>
+    <div class="main">
+      <div class="sidebar">
+        <h2>Huachitos</h2>
+        <button type="button">Encuentra animales</button>
+        <button type="button">Organizacion</button>
+        <% if current_user.is_a?(Organizacion) %>
+          <%= button_to 'Ver solicitudes de adopción', organizaciones_adopciones_path, method: :get, class: "button" %>
+        <% end %>
+      
+         
+      </div>
+
+      <div class="content">
+        <% Animal.all.each do |animal| %>
+          <%= link_to animal_path(animal) do %>
+            <div class="card">
+              <% if animal.fotos.first&.imagen? %>
+                <%= image_tag animal.fotos.first.imagen.url, class: "animal-image" %>
+              <% end %>
+              
+              <h3><%= animal.nombre %></h3>
+              <p><%= animal.raza %>, <%= animal.edad_age %> años y <%= animal.edad_month %> meses</p>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    
+
+    <div class="footer">
+       ❤️ 
+    </div>
+  </div>
+</body>
+</html>

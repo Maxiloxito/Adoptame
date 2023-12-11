@@ -1,0 +1,59 @@
+<%= form_for(@animal, html: { multipart: true }) do |f| %>
+
+    <% if @animal.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@animal.errors.count, "error") %> prohibió que este animal se guarde:</h2>
+  
+        <ul>
+        <% @animal.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+  
+    <div class="field">
+      <%= f.label :nombre %>
+      <%= f.text_field :nombre %>
+    </div>
+    <div class="field">
+      <%= f.label :raza %>
+      <%= f.text_field :raza %>
+    </div>
+    <div class="field">
+      <%= f.label :edad_age %>
+      <%= f.number_field :edad_age %>
+    </div>
+    <div class="field">
+      <%= f.label :edad_month %>
+      <%= f.number_field :edad_month %>
+    </div>
+    <div class="field">
+      <%= f.label :color %>
+      <%= f.text_field :color %>
+    </div>
+    <div class="field">
+      <%= f.label :tipo_animal %>
+      <%= f.text_field :tipo_animal %>
+    </div>
+    <div class="field">
+      <%= f.label :descripcion %>
+      <%= f.text_area :descripcion %>
+    </div>
+    <div class="field">
+      <%= f.label :comportamiento %>
+      <%= f.text_field :comportamiento %>
+    </div>
+    
+    <%= f.fields_for :fotos do |foto| %>
+      <div class="field">
+        <%= foto.label :imagen, "Subir Imagen" %>
+        <%= foto.file_field :imagen %>
+      </div>
+    <% end %>
+  
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+  

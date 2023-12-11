@@ -1,0 +1,20 @@
+<%= form_for [@animal, @adopcion], url: animal_adopciones_path(@animal) do |f| %>
+  <div class="field">
+    <%= f.label :razon, "¿Por qué quieres adoptar a este animal?" %>
+    <%= f.text_area :razon %>
+  </div>
+
+  <div class="field">
+    <%= f.label :experiencia, "Cuéntanos sobre tu experiencia con mascotas" %>
+    <%= f.text_area :experiencia %>
+  </div>
+
+  <div class="field">
+    <%= f.check_box :compromiso_cuidado %>
+    <%= f.label :compromiso_cuidado, "Acepto los términos y condiciones del proceso de adopción." %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Enviar Solicitud de Adopción" %>
+  </div>
+<% end %>

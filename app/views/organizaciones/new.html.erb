@@ -1,0 +1,26 @@
+<h1>Registro de Organización</h1>
+
+<%= form_with model: Organizacion.new, url: organizaciones_path, local: true do |form| %>
+  <%= form.label :nombre %>
+  <%= form.text_field :nombre %>
+
+  <%= form.label :correo %>
+  <%= form.email_field :correo %>
+
+  <%= form.label :direccion %>
+  <%= form.text_field :direccion %>
+
+  <%= form.label :numero_contacto %>
+  <%= form.text_field :numero_contacto %>
+
+  <%= form.label :logo %>
+  <%= form.text_field :logo %>
+
+  <%= form.label :colectas_asociadas %>
+  <%= form.text_area :colectas_asociadas %>
+
+  <%= form.label :password, "Contraseña" %>
+  <%= form.password_field :password %>
+
+  <%= form.submit "Registrar Organización" %>
+<% end %>

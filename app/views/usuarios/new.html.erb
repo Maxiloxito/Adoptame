@@ -1,0 +1,26 @@
+<h1>Registro de Usuario</h1>
+
+<%= form_with model: Usuario.new, url: usuarios_path, local: true do |form| %>
+  <%= form.label :nombre %>
+  <%= form.text_field :nombre %>
+
+  <%= form.label :apellido %>
+  <%= form.text_field :apellido %>
+
+  <%= form.label :edad %>
+  <%= form.number_field :edad %>
+
+  <%= form.label :correo %>
+  <%= form.email_field :correo %>
+
+  <%= form.label :numero_contacto %>
+  <%= form.text_field :numero_contacto %>
+
+  <%= form.label :oficio %>
+  <%= form.text_field :oficio %>
+
+  <%= form.label :password, "Contraseña" %>
+  <%= form.password_field :password %>
+
+  <%= form.submit "Registrarse" %>
+<% end %>

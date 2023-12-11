@@ -1,0 +1,17 @@
+<h1>Iniciar Sesión para Organizaciones</h1>
+
+<%= form_with scope: :session, url: session_organizaciones_path, local: true do |form| %>
+  <div>
+    <%= form.label :correo %>
+    <%= form.email_field :correo, required: true %>
+  </div>
+  
+  <div>
+    <%= form.label :password, "Contraseña" %>
+    <%= form.password_field :password, required: true %>
+  </div>
+
+  <div>
+    <%= form.submit "Iniciar Sesión" %>
+  </div>
+<% end %>
