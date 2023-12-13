@@ -34,7 +34,9 @@
     </div>
     <div class="field">
       <%= f.label :tipo_animal %>
-      <%= f.text_field :tipo_animal %>
+      <%= f.select :tipo_animal, options_for_select([['Perro', 'perro'], ['Gato', 'gato'], ['Conejo', 'conejo'], ['Otro', 'otro']], @animal.tipo_animal) %>
+      <br>
+      <%= f.text_field :tipo_animal_personalizado, placeholder: 'Ingrese el tipo de animal personalizado', style: (@animal && @animal.tipo_animal == 'otro') ? 'display: block;' : 'display: none;' %>
     </div>
     <div class="field">
       <%= f.label :descripcion %>
@@ -56,4 +58,20 @@
       <%= f.submit %>
     </div>
   <% end %>
+  
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+   document.getElementById('animal_tipo_animal_personalizado').style.display = 'none';
+  
+   });
+  
+  document.getElementById('animal_tipo_animal').addEventListener('change', function() {
+   if (this.value === 'otro') {
+     document.getElementById('animal_tipo_animal_personalizado').style.display = 'block';
+   } else {
+     document.getElementById('animal_tipo_animal_personalizado').style.display = 'none';
+   }
+  });
+</script>
   
