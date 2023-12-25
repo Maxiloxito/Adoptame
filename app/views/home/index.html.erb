@@ -1,7 +1,168 @@
-<h1>Bienvenido a Nuestro Sitio</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a Huachitos</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-<%= link_to 'Registro Usuario', usuarios_sign_up_path, class: "btn btn-primary" %>
-<%= link_to 'Registro Organización', organizaciones_sign_up_path, class: "btn btn-primary" %>
+        body {
+            font-family: 'Roboto', sans-serif; /* Fuente moderna y legible */
+            background-color: #eef2f7;
+            color: #333;
+        }
 
-<%= link_to 'Iniciar Sesión Usuario', usuarios_login_path, class: "btn btn-secondary" %>
-<%= link_to 'Iniciar Sesión Organización', organizaciones_login_path, class: "btn btn-secondary" %>
+        h1 {
+            color: #ff69b4; /* Rosa */
+            font-size: 36px;
+            margin-top: 20px;
+            font-weight: 700; /* Fuente más gruesa para el título */
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; 
+            padding: 20px;
+        }
+
+        .carousel-container, .login-container {
+            flex: 1;
+            text-align: center;
+            padding: 20px; /* Agregar espaciado interno */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para profundidad */
+            background-color: white; /* Fondo blanco para los contenedores */
+            margin: 10px; /* Separación entre contenedores */
+            border-radius: 10px; /* Bordes redondeados */
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 15px; /* Reducir el relleno si es necesario */
+            margin: 5px;
+            border-radius: 20px;
+            text-decoration: none;
+            color: #333; /* Cambio de color para mejor legibilidad */
+            font-size: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15);
+            border: 2px solid transparent; /* Borde para botones */
+        }
+
+        .btn-primary {
+            background-color: #add8e6;
+            border-color: #7aaed8; /* Borde más oscuro */
+        }
+
+        .btn-secondary {
+            background-color: #ffb6c1;
+            border-color: #fc8da1; /* Borde más oscuro */
+        }
+
+        .btn-primary:hover, .btn-secondary:hover {
+            transform: scale(1.05);
+            border-color: #333; /* Borde más oscuro al pasar el ratón */
+        }
+
+        .carousel {
+            position: relative;
+            width: 100%; 
+            height: 400px; 
+            overflow: hidden; 
+        }
+
+        .carousel-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-position: center; /* Centra la imagen */
+            background-size: cover; /* Asegura que la imagen cubra todo el contenedor */
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: auto; /* Mantiene el aspecto de la imagen */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Centra la imagen en el contenedor */
+        }
+
+        .carousel-item.active {
+            opacity: 1;
+        }
+
+        header, footer {
+            background-color: #add8e6;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .footer p {
+            margin: 0; 
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Adopción de Mascotas</h1>
+    </header>
+    <div class="container">
+        <div class="carousel-container">
+            <div id="carousel" class="carousel">
+                <% CarouselImage.all.each do |carousel_image| %>
+                <%= image_tag carousel_image.image, class: "carousel-item" %>
+                <% end %>
+            </div>
+        </div>
+
+        <div class="login-container">
+            <h1>Bienvenido a Nuestro Sitio</h1>
+
+            <%= link_to 'Registro Usuario', usuarios_sign_up_path, class: "btn btn-primary" %>
+            <%= link_to 'Registro Organización', organizaciones_sign_up_path, class: "btn btn-primary" %>
+            <%= link_to 'Iniciar Sesión Usuario', usuarios_login_path, class: "btn btn-secondary" %>
+            <%= link_to 'Iniciar Sesión Organización', organizaciones_login_path, class: "btn btn-secondary" %>
+        </div>
+    </div>
+
+
+    <footer>
+        <p>Contacto: info@huachitos.com</p>
+        <p>Síguenos en nuestras redes sociales.</p>
+        <p>Un hogar amoroso para cada mascota.</p>
+    </footer>
+
+
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var items = document.querySelectorAll('.carousel-item');
+        var currentItem = 0;
+        items[currentItem].classList.add('active'); // Asegúrate de que la primera imagen sea visible al cargar
+
+        function nextItem() {
+            items[currentItem].classList.remove('active');
+            currentItem = (currentItem + 1) % items.length;
+            items[currentItem].classList.add('active');
+        }
+
+        setInterval(nextItem, 3000); // Cambia imagen cada 3 segundos
+});
+
+
+</script> 
+
+</body>
+</html>
