@@ -1,17 +1,91 @@
-<h1>Iniciar Sesión para Usuarios</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bienvenido a Huachitos</title>
+<style>
 
-<%= form_with scope: :session, url: session_usuarios_path, local: true do |form| %>
-  <div>
-    <%= form.label :correo %>
-    <%= form.email_field :correo, required: true %>
-  </div>
-  
-  <div>
-    <%= form.label :password, "Contraseña" %>
-    <%= form.password_field :password, required: true %>
-  </div>
+.login-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    margin: 50px auto;
+    font-family: 'Roboto', sans-serif;
+}
 
-  <div>
-    <%= form.submit "Iniciar Sesión" %>
-  </div>
-<% end %>
+.login-container h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-family: 'Baloo 2', cursive;
+}
+
+.form-field {
+    margin-bottom: 20px;
+}
+
+.form-input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 0 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    display: inline-block;
+    width: 100%;
+    padding: 10px 15px;
+    margin-top: 10px;
+    border-radius: 20px;
+    text-decoration: none;
+    color: white;
+    background-color: #add8e6;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #7aaed8;
+}
+
+
+</style>
+</head>
+<body>
+<div class="login-container">
+    <h1>Iniciar Sesión para Usuarios</h1>
+
+    <%= form_with scope: :session, url: session_organizaciones_path, local: true do |form| %>
+      <div class="form-field">
+          <i class="fas fa-envelope icon"></i>
+          <%= form.label :correo %>
+          <%= form.email_field :correo, required: true, class: "form-input" %>
+      </div>
+
+      <div class="form-field">
+          <i class="fas fa-lock icon"></i>
+          <%= form.label :password, "Contraseña" %>
+          <%= form.password_field :password, required: true, class: "form-input" %>
+      </div>
+
+      <div class="form-action">
+          <%= form.submit "Iniciar Sesión", class: "btn btn-primary" %>
+      </div>
+  <% end %>
+    <%= link_to 'Registro Usuario', usuarios_sign_up_path, class: "btn btn-primary" %>
+</div>
+
+<footer>
+</footer>
+</div>
+
+
+</body>
+</html>

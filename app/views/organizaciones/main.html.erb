@@ -1,111 +1,155 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bienvenido a Huachitos</title>
-<style>
-    body, h2, button, div {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box; 
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a Huachitos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body, button, div {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; 
+            font-family: 'Roboto', sans-serif;
+        }
 
-    .wrapper {
-    display: flex;
-    flex-direction: row;
-    min-height: 100vh;
-    }
+        .wrapper {
+            display: flex;
+            flex-direction: row;
+            min-height: 100vh;
+        }
+        h1, h2, h3, h4, h5, h6 {
+          font-family: 'Baloo 2', cursive; /* Fuente para todos los encabezados */
+          color: #333; /* Color para los encabezados */
+        }
 
-    .header {
-    background-color: black;
-    color: yellow;
-    padding: 10px;
-    text-align: center;
-    font-size: 24px;
-    position: fixed; 
-    width: 100%; 
-    z-index: 10; 
-    }
+        .header {
+            font-family: 'Baloo 2', cursive;
+            background-color: #add8e6;
+            color: #333;
+            padding: 10px;
+            text-align: center;
+            font-size: 24px;
+            position: fixed; 
+            width: 100%; 
+            z-index: 10; 
+        }
 
-    .sidebar {
-    background-color: #333;
-    color: white;
-    padding: 20px;
-    width: 200px;
-    position: fixed; 
-    top: 0; 
-    bottom: 0; 
-    overflow-y: auto;
-    z-index: 10; 
-    }
+        .sidebar {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            width: 200px;
+            position: fixed; 
+            top: 0; 
+            bottom: 0; 
+            overflow-y: auto;
+            z-index: 10; 
+        }
 
-    .content {
-    flex: 1; 
-    background-color: #f4f4f4;
-    padding: 20px;
-    margin-left: 200px;
-    margin-top: 50px; 
-    }
+        .content {
+            flex: 1; 
+            background-color: #f4f4f4;
+            padding: 20px;
+            margin-left: 200px;
+            margin-top: 50px; 
+        }
 
-    .footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    position: fixed; 
-    bottom: 0;
-    width: 100%; 
-    z-index: 10; 
-    }
+        .footer {
+            background-color: #add8e6;
+            color: #333;
+            text-align: center;
+            padding: 10px;
+            position: fixed; 
+            bottom: 0;
+            width: 100%; 
+            z-index: 10; 
+        }
 
-    .sidebar button {
-    display: block; 
-    width: 100%; 
-    padding: 10px; 
-    margin-bottom: 5px; 
-    background: #444; 
-    color: white;
-    border: none;
-    text-align: left; 
-    cursor: pointer;
-    }
+        .sidebar button {
+            display: block; 
+            width: 100%; 
+            padding: 10px; 
+            margin-bottom: 5px; 
+            background: #444; 
+            color: white;
+            border: none;
+            text-align: left; 
+            cursor: pointer;
+            border-radius: 10px;
+        }
 
-    .sidebar button:hover {
-    background: #555; 
-    }
+        .sidebar button:hover {
+            background: #555; 
+        }
 
-    .card {
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      overflow: hidden;
-      text-align: center;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      transition: box-shadow 0.3s ease-in-out;
-    }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease-in-out;
+        }
 
-    .card:hover {
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
+        .card:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
 
-    .card .animal-image {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
+        .card .animal-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
 
-    .card h3 {
-      margin: 10px 0;
-      color: #333;
-    }
+        .card h3 {
+            margin: 10px 0;
+            color: #333;
+            font-family: 'Baloo 2', cursive;
+        }
 
-    .card p {
-      color: #666;
-      margin-bottom: 15px;
-    }
+        .card p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .sidebar {
+            background-color: #ffb6c1; /* Cambio de color para el sidebar */
+            color: #333;
+            padding: 20px;
+            width: 200px;
+            position: fixed; 
+            top: 0; 
+            bottom: 0; 
+            overflow-y: auto;
+            z-index: 10; 
+            font-family: 'Baloo 2', cursive;
+        }
 
-</style>
+        .sidebar h2 {
+            color: white;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .sidebar button {
+            display: block; 
+            width: 100%; 
+            padding: 10px; 
+            margin-bottom: 5px; 
+            background: #fc8da1; /* Color más claro para los botones */
+            color: white;
+            border: none;
+            text-align: left; 
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar button:hover {
+            background: #f7a8b8; /* Color al pasar el ratón */
+        }
+    </style>
 </head>
 <body>
 
@@ -113,17 +157,19 @@
     <div class="header">
       Bienvenido
       <% if current_user.is_a?(Organizacion) %>
-        <%= link_to 'Crear Animal', new_animal_path %>
       <% end %>    
     </div>
     <div class="main">
       <div class="sidebar">
-        <h2>Huachitos</h2>
+        <h2>AdoptaMe</h2>
         <button type="button">Encuentra animales</button>
         <button type="button">Organizacion</button>
+
         <% if current_user.is_a?(Organizacion) %>
+          <%= button_to 'Crear publicacion de adopcion', new_animal_path, method: :get, class: "button" %>
           <%= button_to 'Ver solicitudes de adopción', organizaciones_adopciones_path, method: :get, class: "button" %>
-        <% end %>
+        
+          <% end %>
       
          
       </div>

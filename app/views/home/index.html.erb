@@ -5,19 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bienvenido a Huachitos</title>
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Roboto:wght@400;700&display=swap');
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
 
         body {
-            font-family: 'Roboto', sans-serif; /* Fuente moderna y legible */
-            background-color: #eef2f7;
+            font-family: 'Roboto', sans-serif; 
+            background-color: #f0f8ff; 
             color: #333;
         }
 
         h1 {
-            color: #ff69b4; /* Rosa */
+            color: #ff69b4; 
             font-size: 36px;
             margin-top: 20px;
-            font-weight: 700; /* Fuente más gruesa para el título */
+            font-weight: 700; 
+            font-family: 'Baloo 2', cursive; 
         }
 
         .container {
@@ -31,39 +33,45 @@
         .carousel-container, .login-container {
             flex: 1;
             text-align: center;
-            padding: 20px; /* Agregar espaciado interno */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para profundidad */
-            background-color: white; /* Fondo blanco para los contenedores */
-            margin: 10px; /* Separación entre contenedores */
-            border-radius: 10px; /* Bordes redondeados */
+            padding: 20px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            background-color: white; 
+            margin: 10px; 
+            border-radius: 10px; 
+            transition: transform 0.3s ease;  
+        }
+
+        .carousel-container:hover, .login-container:hover {
+            transform: scale(1.05); 
         }
 
         .btn {
             display: inline-block;
-            padding: 10px 15px; /* Reducir el relleno si es necesario */
+            padding: 10px 15px;
             margin: 5px;
             border-radius: 20px;
             text-decoration: none;
-            color: #333; /* Cambio de color para mejor legibilidad */
+            color: #333; 
             font-size: 18px;
             transition: all 0.3s ease;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15);
-            border: 2px solid transparent; /* Borde para botones */
+            border: 2px solid transparent; 
+            font-family: 'Baloo 2', cursive;
         }
 
         .btn-primary {
             background-color: #add8e6;
-            border-color: #7aaed8; /* Borde más oscuro */
+            border-color: #7aaed8; 
         }
 
         .btn-secondary {
             background-color: #ffb6c1;
-            border-color: #fc8da1; /* Borde más oscuro */
+            border-color: #fc8da1;
         }
 
         .btn-primary:hover, .btn-secondary:hover {
             transform: scale(1.05);
-            border-color: #333; /* Borde más oscuro al pasar el ratón */
+            border-color: #333;
         }
 
         .carousel {
@@ -81,13 +89,13 @@
             height: 100%;
             opacity: 0;
             transition: opacity 1s ease-in-out;
-            background-position: center; /* Centra la imagen */
-            background-size: cover; /* Asegura que la imagen cubra todo el contenedor */
+            background-position: center; 
+            background-size: cover; 
         }
 
         .carousel-item img {
             width: 100%;
-            height: auto; /* Mantiene el aspecto de la imagen */
+            height: auto; 
             position: absolute;
             top: 50%;
             left: 50%;
@@ -110,11 +118,22 @@
             font-size: 14px;
         }
 
+        .icon {
+            font-size: 48px;
+            color: #ff69b4;
+            margin: 10px;
+        }
+
+        .icon:hover {
+            transform: rotate(360deg); 
+        }
+
     </style>
 </head>
 <body>
     <header>
-        <h1>Adopción de Mascotas</h1>
+        <h1>Bienvenido a AdoptaMe</h1>
+
     </header>
     <div class="container">
         <div class="carousel-container">
@@ -126,11 +145,8 @@
         </div>
 
         <div class="login-container">
-            <h1>Bienvenido a Nuestro Sitio</h1>
-
             <%= link_to 'Registro Usuario', usuarios_sign_up_path, class: "btn btn-primary" %>
-            <%= link_to 'Registro Organización', organizaciones_sign_up_path, class: "btn btn-primary" %>
-            <%= link_to 'Iniciar Sesión Usuario', usuarios_login_path, class: "btn btn-secondary" %>
+            <br><%= link_to 'Iniciar Sesión Usuario', usuarios_login_path, class: "btn btn-secondary" %>
             <%= link_to 'Iniciar Sesión Organización', organizaciones_login_path, class: "btn btn-secondary" %>
         </div>
     </div>
