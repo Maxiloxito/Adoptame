@@ -1,0 +1,17 @@
+<%= link_to 'Crear Nueva Colecta', new_organizacione_colecta_path(@organizacion) %>
+
+<% @colectas.each do |colecta| %>
+  <div>
+    <h2><%= colecta.nombre %></h2>
+    <p><%= colecta.descripcion %></p>
+    <% fondos_recaudados = colecta.fondos_recaudados || 0 %>
+    <% meta = colecta.meta || 1 %>
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" style="width: <%= (fondos_recaudados / meta) * 100 %>%;" aria-valuenow="<%= fondos_recaudados %>" aria-valuemin="0" aria-valuemax="<%= meta %>">
+        <%= colecta.nombre %>
+      </div>
+    </div>
+    <%= link_to 'Editar', edit_organizacione_colecta_path(@organizacion, colecta) %>
+    <%= link_to 'Eliminar', organizacione_colecta_path(@organizacion, colecta), method: :delete, data: { confirm: '¿Estás seguro?' } %>
+  </div>
+<% end %>

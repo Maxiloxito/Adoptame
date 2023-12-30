@@ -1,0 +1,2 @@
+module ColectaHelper
+end

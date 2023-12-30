@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_25_153048) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_30_190114) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -76,6 +76,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_25_153048) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "colectas", force: :cascade do |t|
+    t.string "nombre"
+    t.text "descripcion"
+    t.date "fecha_inicio"
+    t.date "fecha_fin"
+    t.decimal "meta", precision: 10, scale: 2
+    t.integer "organizacion_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.decimal "fondos_recaudados"
+    t.index ["organizacion_id"], name: "index_colectas_on_organizacion_id"
+  end
+
   create_table "fotos", force: :cascade do |t|
     t.integer "animal_id", null: false
     t.string "imagen"
@@ -112,5 +125,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_25_153048) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "adopcions", "animals"
   add_foreign_key "adopcions", "usuarios"
+  add_foreign_key "colectas", "organizacions"
   add_foreign_key "fotos", "animals"
 end

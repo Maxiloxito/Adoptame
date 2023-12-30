@@ -1,0 +1,43 @@
+<h1>Editar Colecta</h1>
+
+<%= form_with(model: [@organizacion, @colecta], url: organizacione_colecta_path(@organizacion, @colecta), local: true) do |form| %>
+  <% if @colecta.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@colecta.errors.count, "error") %> impidieron que esta colecta se guardara:</h2>
+      <ul>
+        <% @colecta.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :nombre, 'Nombre de la Colecta' %>
+    <%= form.text_field :nombre %>
+  </div>
+
+  <div class="field">
+    <%= form.label :descripcion, 'Descripción' %>
+    <%= form.text_area :descripcion %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fecha_inicio, 'Fecha de Inicio' %>
+    <%= form.date_field :fecha_inicio %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fecha_fin, 'Fecha de Finalización' %>
+    <%= form.date_field :fecha_fin %>
+  </div>
+
+  <div class="field">
+    <%= form.label :meta, 'Meta (Cantidad deseada a recaudar)' %>
+    <%= form.number_field :meta, step: 0.01 %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Actualizar Colecta' %>
+  </div>
+<% end %>

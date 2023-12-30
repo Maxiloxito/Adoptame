@@ -2,6 +2,12 @@ class OrganizacionesController < ApplicationController
   def adopciones
     @adopciones = Adopcion.all
   end
+
+  def show
+    @organizacion = Organizacion.find(params[:id])
+    @colectas = @organizacion.colectas
+  end
+
   
   def new
     @organizacion = Organizacion.new

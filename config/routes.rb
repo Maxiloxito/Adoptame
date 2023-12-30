@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'colecta/index'
+  get 'colecta/new'
+  get 'colecta/edit'
   get 'adopciones/new'
   get 'adopciones/create'
 
@@ -31,6 +34,10 @@ Rails.application.routes.draw do
   get 'organizaciones/main', to: 'organizaciones#main', as: :organizacion_main
   get 'organizaciones/adopciones', to: 'organizaciones#adopciones'
 
+  resources :organizaciones do
+    resources :colectas
+  end
+  
 
   # Redirecciona a la pagina main para las ORGANIZACIONES que inician sesion
   get 'session_organizaciones/new', to: 'session_organizaciones#new', as: :new_session_organizaciones

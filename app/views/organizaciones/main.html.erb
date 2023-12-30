@@ -168,8 +168,8 @@
         <% if current_user.is_a?(Organizacion) %>
           <%= button_to 'Crear publicacion de adopcion', new_animal_path, method: :get, class: "button" %>
           <%= button_to 'Ver solicitudes de adopción', organizaciones_adopciones_path, method: :get, class: "button" %>
-        
-          <% end %>
+          <%= button_to 'Gestionar Colectas', organizacione_colectas_path(current_user), method: :get, class: "button" %>
+        <% end %>
       
          
       </div>
