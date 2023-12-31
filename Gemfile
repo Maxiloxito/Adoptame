@@ -16,7 +16,7 @@ gem "sqlite3", "~> 1.4"
 gem "puma", "~> 5.0"
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem "importmap-rails"
+gem "importmap-rails", "~> 0.8.1"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
@@ -39,6 +39,7 @@ gem "bcrypt", "~> 3.1.7"
 
 gem 'carrierwave'
 
+gem 'bootstrap', '~> 5.1.3'
 
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

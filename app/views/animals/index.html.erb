@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a AdoptaMe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; 
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f8ff;
+        }
+
+        .wrapper {
+            display: flex;
+            flex-direction: row;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: #add8e6;
+            color: #333;
+            padding: 10px;
+            text-align: center;
+            font-size: 24px;
+            position: fixed; 
+            width: 100%; 
+            z-index: 10; 
+            font-family: 'Baloo 2', cursive;
+        }
+
+        .sidebar {
+            background-color: #ffb6c1;
+            color: #333;
+            padding: 20px;
+            width: 200px;
+            position: fixed; 
+            top: 56px; /* Ajustado para que no se solape con el header */
+            bottom: 0; 
+            overflow-y: auto;
+            z-index: 10; 
+            font-family: 'Baloo 2', cursive;
+        }
+
+        .sidebar h2 {
+            color: white;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .sidebar button {
+            display: block; 
+            width: 100%; 
+            padding: 10px; 
+            margin-bottom: 5px; 
+            background: #fc8da1;
+            color: white;
+            border: none;
+            text-align: left; 
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar button:hover {
+            background: #f7a8b8;
+        }
+
+        .content {
+            flex: 1; 
+            background-color: #f4f4f4;
+            padding: 20px;
+            margin-left: 200px;
+            margin-top: 50px; 
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around; /* Asegúrate de que haya espacio alrededor de los elementos */
+            align-items: stretch; /* Esto hará que todos los elementos de la tarjeta se estiren al mismo tamaño */
+        }
+
+        .card {
+            margin: 10px;
+            flex: 1 1 auto; /* Flexibilidad en el crecimiento, pero con límites */
+            max-width: 300px; /* Ancho máximo para las tarjetas */
+            min-width: 250px; /* Ancho mínimo para mantener la consistencia */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .card .animal-image {
+            width: 100%; /* Ancho completo dentro de la tarjeta */
+            height: 200px; /* Altura fija y más grande para un aspecto uniforme */
+            object-fit: cover; /* Asegura que la imagen cubra el espacio asignado */
+            border-top-left-radius: 15px; /* Redondea los bordes superiores */
+            border-top-right-radius: 15px;
+            display: block; /* Asegura que la imagen se muestre como bloque */
+            margin: auto; /* Centra la imagen horizontalmente */
+        }
+
+        .card h3 {
+            margin: 10px 0;
+            color: #333;
+            font-family: 'Baloo 2', cursive;
+        }
+
+        .card p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .footer {
+            background-color: #add8e6;
+            color: #333;
+            text-align: center;
+            padding: 10px;
+            position: fixed; 
+            bottom: 0;
+            width: 100%; 
+            z-index: 10; 
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">
+            ¡Bienvenido a AdoptaMe!
+        </div>
+        <div class="sidebar">
+            <%= link_to (current_user.is_a?(Usuario) ? usuario_main_path : organizacion_main_path), style: "text-decoration: none; color: inherit" do %>
+                <h2>AdoptaMe</h2>
+            <% end %>
+            <button type="button" onclick="location.href='/animales'">Encuentra animales</button>
+            <button type="button" onclick="location.href='/organizaciones'">Organizaciones</button>
+            <% if current_user.is_a?(Usuario) %>
+                <button type="button" onclick="window.location='<%= colectas_usuarios_path %>'">Ver Colectas</button>
+            <% end %>
+            <% if current_user.is_a?(Organizacion) %>
+                <%= button_to 'Crear publicación de adopción', new_animal_path, method: :get, class: "button" %>
+                <%= button_to 'Ver solicitudes de adopción', organizaciones_adopciones_path, method: :get, class: "button" %>
+                <%= button_to 'Gestionar Colectas', organizacione_colectas_path(current_user), method: :get, class: "button" %>
+            <% end %>
+        </div>
+        <div class="content">
+          <% Animal.where.not(id: Adopcion.where(estado: 'Aceptado').select(:animal_id)).each do |animal| %>
+            <%= link_to animal_path(animal) do %>
+              <div class="card">
+                <% if animal.fotos.first&.imagen? %>
+                  <%= image_tag animal.fotos.first.imagen.url, class: "animal-image" %>
+                <% end %>
+                <h3><%= animal.nombre %></h3>
+                <p><%= animal.raza %>, <%= animal.edad_age %> años y <%= animal.edad_month %> meses</p>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+    
+        <div class="footer">
+            ❤️ Adopta con responsabilidad
+        </div>
+    </div>
+</body>
+</html>

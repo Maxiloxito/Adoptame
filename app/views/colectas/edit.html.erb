@@ -1,43 +1,164 @@
-<h1>Editar Colecta</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a AdoptaMe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Baloo 2', cursive;
+            background-color: #f0f8ff;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-<%= form_with(model: [@organizacion, @colecta], url: organizacione_colecta_path(@organizacion, @colecta), local: true) do |form| %>
-  <% if @colecta.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@colecta.errors.count, "error") %> impidieron que esta colecta se guardara:</h2>
-      <ul>
-        <% @colecta.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+        header {
+            background-color: #add8e6;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .my-2 {
+            margin-bottom: 20px;
+        }
+
+        .btn-custom {
+            font-family: 'Baloo 2', cursive;
+            color: #fff;
+            background-color: #ff69b4; /* Rosa suave para el botón de acción principal */
+            border: none;
+            border-radius: 25px; /* Esquinas redondeadas para un aspecto suave */
+            padding: 10px 20px; /* Padding generoso para hacer el botón más grande */
+            margin-right: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave para profundidad */
+        }
+
+        .btn-custom:hover {
+            background-color: #fc8da1; /* Un rosa más claro para el hover */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada en hover */
+            transform: translateY(-2px); /* Pequeño desplazamiento hacia arriba para efecto de elevación */
+        }
+
+        /* Estilo para el botón de editar */
+        .btn-edit {
+            background-color: #add8e6; /* Azul suave para el botón de editar */
+        }
+
+        /* Estilo para el botón de eliminar */
+        .btn-delete {
+            background-color: #f08080; /* Rojo suave para el botón de eliminar */
+        }
+
+        /* Iconos para los botones, por ejemplo usando Font Awesome */
+        .btn-custom .fa {
+            margin-right: 5px; /* Espacio entre el icono y el texto */
+        }
+
+        /* Estilos adicionales para tu progreso de colectas */
+        .progress {
+            background-color: #e9ecef; /* Fondo gris claro para la barra de progreso */
+            border-radius: 25px; /* Esquinas redondeadas para la barra de progreso */
+        }
+
+        .progress-bar {
+            background-color: #94d2bd; /* Verde agua para la barra de progreso llena */
+            border-radius: 25px; /* Esquinas redondeadas para la parte llena de la barra de progreso */
+        }
+
+        .footer {
+            background-color: #add8e6;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            margin-top: auto;
+
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Editar Colecta</h1>
+        <%= link_to 'Volver', :back, class: 'btn-custom' %>
+    </header>
+
+    <div class="container my-4">
+      <%= form_with(model: [@organizacion, @colecta], url: organizacione_colecta_path(@organizacion, @colecta), local: true) do |form| %>
+        <% if @colecta.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@colecta.errors.count, "error") %> impidieron que esta colecta se guardara:</h2>
+            <ul>
+              <% @colecta.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
         <% end %>
-      </ul>
+
+        <div class="field">
+          <%= form.label :nombre, 'Nombre de la Colecta' %>
+          <%= form.text_field :nombre, class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= form.label :descripcion, 'Descripción' %>
+          <%= form.text_area :descripcion, class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= form.label :fecha_inicio, 'Fecha de Inicio' %>
+          <%= form.date_field :fecha_inicio, id: 'fecha_inicio', class: 'form-control', min: Date.today %>
+        </div>
+        
+        <div class="field">
+          <%= form.label :fecha_fin, 'Fecha de Finalización' %>
+          <%= form.date_field :fecha_fin, id: 'fecha_fin', class: 'form-control', min: Date.today %>
+        </div>
+
+
+        <div class="field">
+          <%= form.label :meta, 'Meta (Cantidad deseada a recaudar)' %>
+          <%= form.number_field :meta, step: 0.01, class: 'form-control', min: 0 %>
+        </div>
+        
+        <div class="field">
+          <%= form.label :fondos_recaudados, 'Fondos Recaudados' %>
+          <%= form.number_field :fondos_recaudados, step: 0.01, class: 'form-control', min: 0 %>
+        </div>
+        <br>
+        <div class="actions">
+          <%= form.submit 'Actualizar Colecta', class: 'btn-custom' %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= form.label :nombre, 'Nombre de la Colecta' %>
-    <%= form.text_field :nombre %>
-  </div>
+    <footer class="footer">
+        ❤️ Adopta con responsabilidad
+    </footer>
 
-  <div class="field">
-    <%= form.label :descripcion, 'Descripción' %>
-    <%= form.text_area :descripcion %>
-  </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-  <div class="field">
-    <%= form.label :fecha_inicio, 'Fecha de Inicio' %>
-    <%= form.date_field :fecha_inicio %>
-  </div>
+    <script>
+        $(document).ready(function(){
+            $('#fecha_inicio').change(function(){
+                var fechaInicio = $(this).val();
+                $('#fecha_fin').attr('min', fechaInicio);
+            });
+        });
+    </script>
 
-  <div class="field">
-    <%= form.label :fecha_fin, 'Fecha de Finalización' %>
-    <%= form.date_field :fecha_fin %>
-  </div>
-
-  <div class="field">
-    <%= form.label :meta, 'Meta (Cantidad deseada a recaudar)' %>
-    <%= form.number_field :meta, step: 0.01 %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit 'Actualizar Colecta' %>
-  </div>
-<% end %>
+</body>
+</html>

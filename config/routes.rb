@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  get 'sedes/index'
+  get 'sedes/new'
+  get 'sedes/create'
+  get 'sedes/edit'
+  get 'sedes/update'
+  get 'sedes/destroy'
+  get 'colectas_usuarios/index'
   get 'colecta/index'
   get 'colecta/new'
   get 'colecta/edit'
@@ -33,9 +40,14 @@ Rails.application.routes.draw do
   
   get 'organizaciones/main', to: 'organizaciones#main', as: :organizacion_main
   get 'organizaciones/adopciones', to: 'organizaciones#adopciones'
+  get 'organizaciones', to: 'organizaciones#index'
 
   resources :organizaciones do
-    resources :colectas
+    resources :colectas do
+      member do
+        patch :update_amount
+      end
+    end
   end
   
 
@@ -47,8 +59,27 @@ Rails.application.routes.draw do
 
   #Vistas para la vista, creacion de los animales en adopcion 
   resources :animals do
-    resources :adopciones, only: [:new, :create]
+    resources :adopciones, only: [:new, :create, :show] do
+      member do
+        patch :accept
+        patch :reject
+      end
+    end
   end
+  get 'animales', to: 'animals#index'
+
   get 'adopciones/new'
   get 'adopciones/create'
+
+  patch 'colectas/:id/actualizar_monto', to: 'colectas#actualizar_monto'
+
+
+  get 'colectas_usuarios', to: 'colectas_usuarios#index'
+
+  resources :colectas_usuarios, only: [:index]
+
+  resources :organizaciones do
+    resources :sedes
+  end
+  
 end

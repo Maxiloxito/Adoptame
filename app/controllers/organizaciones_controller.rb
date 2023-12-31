@@ -1,4 +1,8 @@
 class OrganizacionesController < ApplicationController
+  def index
+    @organizaciones = Organizacion.all
+  end
+  
   def adopciones
     @adopciones = Adopcion.all
   end

@@ -38,6 +38,11 @@
     <%= form.number_field :meta, step: 0.01 %>
   </div>
 
+  <div class="field">
+    <%= form.label :fondos_recaudados, 'Fondos Recaudados' %>
+    <%= form.number_field :fondos_recaudados, step: 0.01, value: @colecta.fondos_recaudados || 0 %>
+  </div>
+
   <div class="actions">
     <%= form.submit 'Crear Colecta' %>
   </div>

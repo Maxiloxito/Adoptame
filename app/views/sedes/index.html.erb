@@ -1,0 +1,29 @@
+<div class="container">
+  <h1>Sedes</h1>
+
+  <%= link_to 'Crear Nueva Sede', new_organizacione_sede_path(@organizacion), class: "button" %>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Dirección</th>
+        <th>Número de Contacto</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @sedes.each do |sede| %>
+        <tr>
+          <td><%= sede.nombre %></td>
+          <td><%= sede.direccion %></td>
+          <td><%= sede.numero_contacto %></td>
+          <td>
+            <%= link_to 'Editar', edit_organizacione_sede_path(@organizacion, sede), class: "button" %>
+            <%= link_to 'Ver Detalles', organizacione_sede_path(@organizacion, sede), class: "button" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

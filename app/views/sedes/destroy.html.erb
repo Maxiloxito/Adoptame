@@ -1,0 +1,5 @@
+<% @sedes.each do |sede| %>
+<%= link_to 'Eliminar', organizacione_sede_path(@organizacion, sede), 
+            method: :delete, 
+            data: { confirm: '¿Estás seguro de que quieres eliminar esta sede?' },
+            class: "button" %>

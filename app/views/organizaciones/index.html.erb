@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a AdoptaMe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+    body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box; 
+        font-family: 'Roboto', sans-serif;
+        background-color: #f0f8ff;
+    }
+    
+    .wrapper {
+        display: flex;
+        flex-direction: column; /* Cambiado de row a column para mejor flujo de contenido */
+        min-height: 100vh;
+    }
+    
+    .header {
+        background-color: #add8e6;
+        color: #333;
+        padding: 10px;
+        text-align: center;
+        font-size: 24px;
+        position: fixed; 
+        width: 100%; 
+        z-index: 10; 
+        font-family: 'Baloo 2', cursive;
+    }
+    
+    .sidebar {
+        background-color: #ffb6c1;
+        color: #333;
+        padding: 20px;
+        width: 200px;
+        position: fixed; 
+        top: 56px; /* Ajustado para que no se solape con el header */
+        bottom: 0; 
+        overflow-y: auto;
+        z-index: 10; 
+        font-family: 'Baloo 2', cursive;
+    }
+    
+    .sidebar h2 {
+        color: white;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    
+    .sidebar button {
+        display: block; 
+        width: 100%; 
+        padding: 10px; 
+        margin-bottom: 5px; 
+        background: #fc8da1;
+        color: white;
+        border: none;
+        text-align: left; 
+        cursor: pointer;
+        border-radius: 10px;
+        transition: background-color 0.3s;
+    }
+    
+    .sidebar button:hover {
+        background: #f7a8b8;
+    }
+    
+    .content {
+        padding: 20px;
+        margin-top: 60px; /* Ajustado para no solaparse con el header */
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around; /* Mejor para la distribución de espacio */
+    }
+    
+    .card {
+        margin: 10px;
+        flex: 0 1 calc(30% - 20px); /* Se ajusta para mejorar el tamaño de las tarjetas */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        background-color: #fff; /* Fondo blanco para las tarjetas */
+        border-radius: 15px; /* Bordes redondeados para las tarjetas */
+        overflow: hidden; /* Oculta el contenido que sobrepase los bordes */
+    }
+    
+    .card:hover {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .card .animal-image {
+        width: 100%; /* Ancho completo dentro de la tarjeta */
+        height: 150px; /* Altura fija para un aspecto uniforme */
+        object-fit: cover; /* Asegura que la imagen cubra el espacio asignado */
+        border-top-left-radius: 15px; /* Redondea los bordes superiores */
+        border-top-right-radius: 15px;
+        object-fit: cover
+    }
+    
+    .card h3 {
+        margin: 10px 0;
+        color: #333;
+        font-family: 'Baloo 2', cursive;
+        text-align: center;
+    }
+    
+    .card p {
+        color: #666;
+        margin: 0 10px 10px; /* Ajusta los márgenes para alinear con el título */
+        text-align: center;
+    }
+    
+    .footer {
+        background-color: #add8e6;
+        color: #333;
+        text-align: center;
+        padding: 10px;
+        position: fixed; 
+        bottom: 0;
+        width: 100%; 
+        z-index: 10; 
+    }
+    
+    /* Imagen del logo redonda */
+    .card-img-top {
+        width: 100px; /* Tamaño fijo */
+        height: 100px; /* Tamaño fijo */
+        border-radius: 50%; /* Redondea completamente la imagen */
+        object-fit: cover; /* Asegura que la imagen cubra el espacio */
+        display: block;
+        margin: 20px auto; /* Centra la imagen horizontalmente */
+    }
+
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">
+            ¡Bienvenido a AdoptaMe!
+        </div>
+
+        <div class="sidebar">
+            <%= link_to (current_user.is_a?(Usuario) ? usuario_main_path : organizacion_main_path), style: "text-decoration: none; color: inherit" do %>
+                <h2>AdoptaMe</h2>
+            <% end %>
+            <button type="button" onclick="location.href='/animales'">Encuentra animales</button>
+            <button type="button" onclick="location.href='/organizaciones'">Organizaciones</button>
+            <% if current_user.is_a?(Usuario) %>
+                <button type="button" onclick="window.location='<%= colectas_usuarios_path %>'">Ver Colectas</button>
+            <% end %>
+            <% if current_user.is_a?(Organizacion) %>
+                <%= button_to 'Crear publicación de adopción', new_animal_path, method: :get, class: "button" %>
+                <%= button_to 'Ver solicitudes de adopción', organizaciones_adopciones_path, method: :get, class: "button" %>
+                <%= button_to 'Gestionar Colectas', organizacione_colectas_path(current_user), method: :get, class: "button" %>
+                <%= button_to 'Añadir Sede', new_organizacione_sede_path(current_user), method: :get, class: "button" %>
+            <% end %>
+        </div>
+
+        <!-- Contenido principal -->
+        <div class="content">
+            <!-- Iterar sobre cada organización -->
+            <!-- app/views/organizaciones/index.html.erb -->
+            <% @organizaciones.each do |organizacion| %>
+                <div class="card">
+                    <% if organizacion.logo.present? %>
+                    <%= image_tag organizacion.logo %>
+                    <% else %>
+                    <p>No logo available</p>
+                    <% end %>
+                    <h3><%= organizacion.nombre %></h3>
+                    <p>Correo: <%= organizacion.correo %></p>
+                    <p>Contacto: <%= organizacion.numero_contacto %></p>
+                </div>
+            <% end %>
+        </div>
+
+        <!-- Pie de página -->
+        <div class="footer">
+            ❤️ Adopta con responsabilidad
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<div class="container">
+  <h1>Editar Sede</h1>
+
+  <%= form_with(model: [@organizacion, @sede], url: organizacione_sede_path(@organizacion, @sede), local: true) do |f| %>
+    <% if f.object.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(f.object.errors.count, "error") %> impidieron que esta sede se guarde:</h2>
+        <ul>
+          <% f.object.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :nombre %>
+      <%= f.text_field :nombre %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :direccion %>
+      <%= f.text_field :direccion %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :numero_contacto %>
+      <%= f.text_field :numero_contacto %>
+    </div>
+
+    <%= f.submit "Actualizar Sede", class: "button" %>
+  <% end %>
+</div>

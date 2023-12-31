@@ -1,0 +1,14 @@
+<div class="container">
+  <h1>Detalles de la Sede</h1>
+
+  <p><strong>Nombre:</strong> <%= @sede.nombre %></p>
+  <p><strong>Dirección:</strong> <%= @sede.direccion %></p>
+  <p><strong>Número de Contacto:</strong> <%= @sede.numero_contacto %></p>
+
+  <%= link_to 'Editar', edit_organizacione_sede_path(@organizacion, @sede), class: "button" %>
+  <%= link_to 'Volver', organizacione_sedes_path(@organizacion), class: "button" %>
+  <%= button_to 'Eliminar', organizacione_sede_path(@organizacion, @sede),
+      method: :delete,
+      data: { confirm: '¿Estás seguro?' },
+      class: "button" %>
+</div>

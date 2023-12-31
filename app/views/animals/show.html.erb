@@ -3,199 +3,318 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido a Huachitos</title>
+    <title>Bienvenido a AdoptaMe</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+
     <style>
-        body, h2, button, div {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box; 
-            font-family: 'Roboto', sans-serif;
-        }
+    body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box; 
+        font-family: 'Roboto', sans-serif;
+        background-color: #f0f8ff;
+    }
+    
+    .wrapper {
+        display: flex;
+        flex-direction: column; /* Cambiado de row a column para mejor flujo de contenido */
+        min-height: 100vh;
+    }
+    
+    .header {
+        background-color: #add8e6;
+        color: #333;
+        padding: 10px;
+        text-align: center;
+        font-size: 24px;
+        position: fixed; 
+        width: 100%; 
+        z-index: 10; 
+        font-family: 'Baloo 2', cursive;
+    }
+    
+    .sidebar {
+        background-color: #ffb6c1;
+        color: #333;
+        padding: 20px;
+        width: 200px;
+        position: fixed; 
+        top: 56px; /* Ajustado para que no se solape con el header */
+        bottom: 0; 
+        overflow-y: auto;
+        z-index: 10; 
+        font-family: 'Baloo 2', cursive;
+    }
+    
+    .sidebar h2 {
+        color: white;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    
+    .sidebar button {
+        display: block; 
+        width: 100%; 
+        padding: 10px; 
+        margin-bottom: 5px; 
+        background: #fc8da1;
+        color: white;
+        border: none;
+        text-align: left; 
+        cursor: pointer;
+        border-radius: 10px;
+        transition: background-color 0.3s;
+    }
+    
+    .sidebar button:hover {
+        background: #f7a8b8;
+    }
+    
+    .content {
+        padding: 20px;
+        margin-top: 60px; /* Ajustado para no solaparse con el header */
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around; /* Mejor para la distribución de espacio */
+    }
+    
+    .card {
+        margin: 10px;
+        flex: 1 1 auto; /* Flexibilidad en el crecimiento, pero con límites */
+        max-width: 800px; /* Ancho máximo para las tarjetas */
+        min-width: 600px; /* Ancho mínimo para mantener la consistencia */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        background-color: #fff;
+        border-radius: 15px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    
+    .card:hover {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .card .animal-image {
+        width: 100%; /* Ancho completo dentro de la tarjeta */
+        height: 200px; /* Altura fija y más grande para un aspecto uniforme */
+        object-fit: cover; /* Asegura que la imagen cubra el espacio asignado */
+        border-top-left-radius: 15px; /* Redondea los bordes superiores */
+        border-top-right-radius: 15px;
+        display: block; /* Asegura que la imagen se muestre como bloque */
+        margin: auto; /* Centra la imagen horizontalmente */
+    }
+    
+    .card h3 {
+        margin: 10px 0;
+        color: #333;
+        font-family: 'Baloo 2', cursive;
+        text-align: center;
+    }
+    
+    .card p {
+        color: #666;
+        margin: 0 10px 10px; /* Ajusta los márgenes para alinear con el título */
+        text-align: center;
+    }
+    
+    .footer {
+        background-color: #add8e6;
+        color: #333;
+        text-align: center;
+        padding: 10px;
+        position: fixed; 
+        bottom: 0;
+        width: 100%; 
+        z-index: 10; 
+    }
+    
+    /* Imagen del logo  */
+    .card-img-top {
+        width: 100px; /* Tamaño fijo */
+        height: 100px; /* Tamaño fijo */
+        border-radius: 50%; /* Redondea completamente la imagen */
+        object-fit: cover; /* Asegura que la imagen cubra el espacio */
+        display: block;
+        margin: 20px auto; /* Centra la imagen horizontalmente */
+    }
+    .animal-details-container {
+        display: flex; /* Cambiado a flex para alinear imagen e información */
+        max-width: 1200px; /* Ajuste del ancho total */
+        margin: auto;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        border-radius: 15px;
+        overflow: hidden;
+        background-color: #fff;
+    }
+    
+    .animal-carousel {
+      position: relative;
+      width: 50%;
+    }
 
-        .wrapper {
-            display: flex;
-            flex-direction: row;
-            min-height: 100vh;
-        }
+    .animal-carousel img {
+        width: 100%;
+        height: auto;
+        display: none; /* Oculta las imágenes inicialmente */
+    }
 
-        .header {
-            background-color: #add8e6;
-            color: #333;
-            padding: 10px;
-            text-align: center;
-            font-size: 24px;
-            position: fixed; 
-            width: 100%; 
-            z-index: 10; 
-        }
+    .animal-carousel img.active {
+        display: block; /* Muestra la imagen activa */
+    }
 
-        .sidebar {
-            background-color: #ffb6c1;
-            color: #333;
-            padding: 20px;
-            width: 200px;
-            position: fixed; 
-            top: 0; 
-            bottom: 0; 
-            overflow-y: auto;
-            z-index: 10; 
-            font-family: 'Baloo 2', cursive;
-        }
+    .carousel-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+    }
 
-        .content {
-            flex: 1; 
-            background-color: #f4f4f4;
-            padding: 20px;
-            margin-left: 200px;
-            margin-top: 50px; 
-        }
+    .prev-button {
+        left: 10px;
+    }
 
-        .footer {
-            background-color: #add8e6;
-            color: #333;
-            text-align: center;
-            padding: 10px;
-            position: fixed; 
-            bottom: 0;
-            width: 100%; 
-            z-index: 10; 
-        }
+    .next-button {
+        right: 10px;
+    }
 
-        .sidebar button {
-            display: block; 
-            width: 100%; 
-            padding: 10px; 
-            margin-bottom: 5px; 
-            background: #fc8da1;
-            color: white;
-            border: none;
-            text-align: left; 
-            cursor: pointer;
-            border-radius: 10px;
-        }
+    .animal-info {
+        width: 50%; /* Ajuste del ancho de la información */
+        padding: 15px;
+        text-align: center;
+    }
+    .animal-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
 
-        .sidebar button:hover {
-            background: #f7a8b8; 
-        }
+    .animal-info {
+        padding: 15px;
+        text-align: center;
+    }
 
-        .card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-            text-align: center;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: box-shadow 0.3s ease-in-out;
-        }
+    .animal-info h2 {
+        margin: 10px 0;
+        color: #333;
+    }
 
-        .card:hover {
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
+    .animal-info p, .animal-info ul {
+        color: #666;
+        margin: 10px 0;
+    }
 
-        .card .animal-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
+    .button {
+        display: inline-block;
+        padding: 10px 20px;
+        margin-top: 10px;
+        background-color: #fc8da1;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        text-decoration: none; /* Remover subrayado de enlaces */
+    }
 
-        .card h3 {
-            margin: 10px 0;
-            color: #333;
-            font-family: 'Baloo 2', cursive;
-        }
-
-        .card p {
-            color: #666;
-            margin-bottom: 15px;
-        }
-
-        .animal-details {
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        .animal-details.visible {
-            opacity: 1;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: #444;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #555;
-        }
+    .button:hover {
+        background-color: #f7a8b8;
+        color: white;
+    }
     </style>
 </head>
 <body>
+    <div class="wrapper">
+        <div class="header">
+            ¡Bienvenido a AdoptaMe!
+        </div>
 
-  <div class="wrapper">
-    <div class="header">
-      ¡Bienvenido a Huachitos! 👋
-      <% if current_user.is_a?(Organizacion) %>
-        <%= link_to 'Crear Animal', new_animal_path %>
-      <% end %>    </div>
-    <div class="main">
-      <div class="sidebar">
-        <button onclick="goBack()" style="margin-bottom: 20px;">Volver Atrás</button>
-        <h2>Adoptame</h2>
-        <button type="button">Encuentra animales</button>
-        <button type="button">Equipos/Funciones</button>
-        <button type="button">Mapa regios</button>
-      </div>
+        <div class="sidebar">
+            <%= link_to (current_user.is_a?(Usuario) ? usuario_main_path : organizacion_main_path), style: "text-decoration: none; color: inherit" do %>
+                <h2>AdoptaMe</h2>
+            <% end %>
+            <br><button type="button" onclick="location.href='/animales'">Encuentra animales</button>
+            <button type="button" onclick="location.href='/organizaciones'">Organizaciones</button>
+            <% if current_user.is_a?(Usuario) %>
+                <button type="button" onclick="window.location='<%= colectas_usuarios_path %>'">Ver Colectas</button>
+            <% end %>
+            <% if current_user.is_a?(Organizacion) %>
+                <%= button_to 'Crear publicación de adopción', new_animal_path, method: :get, class: "button" %>
+                <%= button_to 'Ver solicitudes de adopción', organizaciones_adopciones_path, method: :get, class: "button" %>
+                <%= button_to 'Gestionar Colectas', organizacione_colectas_path(current_user), method: :get, class: "button" %>
+            <% end %>
+        </div>
 
-      <div class="content">
-
+        <div class="content">
         <div class="animal-details-container">
-            <div class="animal-image">
-                <% if @animal.fotos.first&.imagen? %>
-                <%= image_tag @animal.fotos.first.imagen.url, alt: "Imagen del animal" %>
+            <div class="animal-carousel">
+                <% @animal.fotos.each_with_index do |foto, index| %>
+                    <% if foto.imagen.present? %>
+                        <%= image_tag foto.imagen.url, alt: "Imagen del animal", class: ("active" if index == 0) %>
+                    <% end %>
+                    <% if foto.imagen2.present? %>
+                        <%= image_tag foto.imagen2.url, alt: "Imagen 2 del animal", class: ("active" if index == 0) %>
+                    <% end %>
+                    <% if foto.imagen3.present? %>
+                        <%= image_tag foto.imagen3.url, alt: "Imagen 3 del animal", class: ("active" if index == 0) %>
+                    <% end %>
                 <% end %>
+                <button class="carousel-button prev-button">❮</button>
+                <button class="carousel-button next-button">❯</button>
             </div>
             <div class="animal-info">
                 <h2><%= @animal.nombre %></h2>
-                <p><%= @animal.descripcion %></p>
+                <p><%= simple_format(@animal.descripcion) %></p>
                 <ul>
                 <li>Raza: <%= @animal.raza %></li>
                 <li>Edad: <%= @animal.edad_age %> años y <%= @animal.edad_month %> meses</li>
                 <li>Color: <%= @animal.color %></li>
                 <li>Tipo de animal: <%= @animal.tipo_animal %></li>
+                <li>Sede: <%= @animal.sede&.nombre %></li>                
+                <li>Vacunas: 
+                    <ul>
+                    <% @animal.vacunas.split(',').each do |vacuna| %>
+                        <li><%= vacuna %></li>
+                    <% end %>
+                    </ul>
+                </li>
+                </ul>
                 <% if current_user && !current_user.is_a?(Organizacion) %>
-                  <%= link_to 'Postular para Adopción', new_animal_adopcione_path(@animal), class: "button" %>
-                <% end %>               
-               </ul>
-            </div>
+                <%= link_to 'Postular para Adopción', new_animal_adopcione_path(@animal), class: "button" %>
+                <% end %>
             </div>
         </div>
-      </div>
-    
-
-    <div class="footer">
-      © HUACHITOS 2023 - Hecho con ❤️ en Chile
     </div>
-  </div>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    var details = document.querySelector('.animal-details');
-    if (details) {
-      details.classList.add('visible');
-    }
-  });
-</script>
+    <script>
+        // JavaScript para el carrusel
+        let currentImageIndex = 0;
+        const images = document.querySelectorAll('.animal-carousel img');
+        const totalImages = images.length;
 
-<script>
-  function goBack() {
-    window.history.back();
-  }
-</script>
+        function showImage(index) {
+            images.forEach(img => img.classList.remove('active'));
+            images[index].classList.add('active');
+        }
 
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % totalImages;
+            showImage(currentImageIndex);
+        }
 
+        function prevImage() {
+            currentImageIndex = (currentImageIndex - 1 + totalImages) % totalImages;
+            showImage(currentImageIndex);
+        }
+
+        document.querySelector('.next-button').addEventListener('click', nextImage);
+        document.querySelector('.prev-button').addEventListener('click', prevImage);
+
+        setInterval(nextImage, 2000); // Cambia la imagen cada 2 segundos
+    </script>
 </body>
 </html>

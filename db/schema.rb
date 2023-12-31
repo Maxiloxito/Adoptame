@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_30_190114) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_31_213615) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -69,6 +69,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_30_190114) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "tipo_animal_personalizado"
+    t.integer "sede_id"
+    t.string "vacunas"
+    t.boolean "esterilizado"
+    t.index ["sede_id"], name: "index_animals_on_sede_id"
   end
 
   create_table "carousel_images", force: :cascade do |t|
@@ -94,6 +98,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_30_190114) do
     t.string "imagen"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "imagen2"
+    t.string "imagen3"
     t.index ["animal_id"], name: "index_fotos_on_animal_id"
   end
 
@@ -107,6 +113,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_30_190114) do
     t.datetime "updated_at", null: false
     t.string "password_digest"
     t.string "correo"
+  end
+
+  create_table "sedes", force: :cascade do |t|
+    t.string "nombre"
+    t.string "direccion"
+    t.string "numero_contacto"
+    t.integer "organizacion_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organizacion_id"], name: "index_sedes_on_organizacion_id"
   end
 
   create_table "usuarios", force: :cascade do |t|
@@ -125,6 +141,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_30_190114) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "adopcions", "animals"
   add_foreign_key "adopcions", "usuarios"
+  add_foreign_key "animals", "sedes"
   add_foreign_key "colectas", "organizacions"
   add_foreign_key "fotos", "animals"
+  add_foreign_key "sedes", "organizacions"
 end

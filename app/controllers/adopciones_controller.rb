@@ -1,5 +1,5 @@
 class AdopcionesController < ApplicationController
-  before_action :set_animal, only: [:new, :create]
+  before_action :set_animal, only: [:new, :create, :show]
   before_action :authenticate_user!, only: [:new, :create]
 
 
@@ -22,7 +22,26 @@ class AdopcionesController < ApplicationController
     end
   end
   
+  def show
+    @adopcion = Adopcion.find(params[:id])
 
+  end
+
+  def accept
+    @adopcion = Adopcion.find(params[:id])
+    @adopcion.update(estado: 'Aceptado')
+    message = "La organizacion #{@adopcion.animal.organizacion.nombre} ha aceptado tu solicitud de adopción para #{@adopcion.animal.nombre}. Por favor, comunícate con la organización lo antes posible."
+    whatsapp_url = "https://wa.me/#{+56991620489}?text=#{URI.encode_www_form_component(message)}"
+    redirect_to whatsapp_url, allow_other_host: true
+  end
+  
+  def reject
+    @adopcion = Adopcion.find(params[:id])
+    @adopcion.update(estado: 'Rechazado')
+    message = "La organizacion #{@adopcion.animal.organizacion.nombre} ha aceptado tu solicitud de adopción para #{@adopcion.animal.nombre}. Por favor, comunícate con la organización lo antes posible."
+    whatsapp_url = "https://wa.me/#{+56991620489}?text=#{URI.encode_www_form_component(message)}"
+    redirect_to whatsapp_url, allow_other_host: true
+  end
   private
 
   def set_animal

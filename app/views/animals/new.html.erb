@@ -1,77 +1,214 @@
-<%= form_for(@animal, html: { multipart: true }) do |f| %>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Adopción de Mascotas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #ff69b4;
+            font-family: 'Baloo 2', cursive;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: .5rem;
+            color: #666;
+        }
+        input[type="text"],
+        input[type="number"],
+        textarea,
+        select,
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            color: #333;
+        }
+        input[type="submit"] {
+            width: auto;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            background-color: #add8e6;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+            font-family: 'Baloo 2', cursive;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #9acfea;
+        }
+        .form-control:focus {
+            border-color: #ff69b4;
+            outline: none;
+            box-shadow: 0 0 8px rgba(255, 105, 180, 0.5);
+        }
+        .image-upload {
+            border: 2px dashed #ddd;
+            padding: 20px;
+            text-align: center;
+            background: #fafafa;
+            margin-bottom: 20px;
+        }
+        .image-upload input[type="file"] {
+            border: none;
+            margin-bottom: 0;
+        }
+        .image-upload label {
+            display: block;
+            width: auto;
+            padding: 10px 20px;
+            background-color: #ff69b4;
+            color: white;
+            border-radius: 20px;
+            cursor: pointer;
+            margin: auto;
+        }
+        .image-preview {
+            width: 100%;
+            margin-top: 10px;
+            display: none;
+            position: relative;
+        }
+        .image-preview img {
+            width: 100%;
+            border-radius: 4px;
+        }
+        .image-preview button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            border: none;
+            background-color: rgba(255, 0, 0, 0.5);
+            color: white;
+            border-radius: 50%;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Formulario para Animal en Adopción</h1>
+    <%= form_for(@animal, html: { multipart: true }) do |f| %>
 
-    <% if @animal.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@animal.errors.count, "error") %> prohibió que este animal se guarde:</h2>
-  
-        <ul>
-        <% @animal.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
-  
-    <div class="field">
-      <%= f.label :nombre %>
-      <%= f.text_field :nombre %>
-    </div>
-    <div class="field">
-      <%= f.label :raza %>
-      <%= f.text_field :raza %>
-    </div>
-    <div class="field">
-      <%= f.label :edad_age %>
-      <%= f.number_field :edad_age %>
-    </div>
-    <div class="field">
-      <%= f.label :edad_month %>
-      <%= f.number_field :edad_month %>
-    </div>
-    <div class="field">
-      <%= f.label :color %>
-      <%= f.text_field :color %>
-    </div>
-    <div class="field">
-      <%= f.label :tipo_animal %>
-      <%= f.select :tipo_animal, options_for_select([['Perro', 'perro'], ['Gato', 'gato'], ['Conejo', 'conejo'], ['Otro', 'otro']], @animal.tipo_animal) %>
-      <br>
-      <%= f.text_field :tipo_animal_personalizado, placeholder: 'Ingrese el tipo de animal personalizado', style: (@animal && @animal.tipo_animal == 'otro') ? 'display: block;' : 'display: none;' %>
-    </div>
-    <div class="field">
-      <%= f.label :descripcion %>
-      <%= f.text_area :descripcion %>
-    </div>
-    <div class="field">
-      <%= f.label :comportamiento %>
-      <%= f.text_field :comportamiento %>
-    </div>
+      <% if @animal.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@animal.errors.count, "error") %> prohibió que este animal se guarde:</h2>
     
-    <%= f.fields_for :fotos do |foto| %>
-      <div class="field">
-        <%= foto.label :imagen, "Subir Imagen" %>
-        <%= foto.file_field :imagen %>
+          <ul>
+          <% @animal.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+    
+      <div class="form-group">
+        <%= f.label :nombre %>
+        <%= f.text_field :nombre %>
       </div>
-    <% end %>
-  
-    <div class="actions">
-      <%= f.submit %>
-    </div>
-  <% end %>
-  
+      <div class="form-group">
+        <%= f.label :raza %>
+        <%= f.text_field :raza %>
+      </div>
+      <div class="form-group">
+        <%= f.label :edad_age, "Edad (Años)" %>
+        <%= f.number_field :edad_age, min: 0 %>
+      </div>
+      <div class="form-group">
+        <%= f.label :edad_month, "Edad (Meses)" %>
+        <%= f.number_field :edad_month, min: 0 %>
+      </div>
+      <div class="form-group">
+        <%= f.label :color %>
+        <%= f.text_field :color %>
+      </div>
+      <div class="form-group">
+        <%= f.label :tipo_animal, "Tipo de Animal" %>
+        <%= f.select :tipo_animal, ['Perro', 'Gato', 'Conejo', 'Hámster', 'Pájaro', 'Pez', 'Tortuga', 'Cobaya', 'Iguana', 'Serpiente', 'otro'], { include_blank: 'Seleccione un Animal' } %>
+        <br>
+        <%= f.text_field :tipo_animal_personalizado, placeholder: 'Ingrese el tipo de animal', style: (@animal && @animal.tipo_animal == 'otro') ? 'display: block;' : 'display: none;' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :descripcion %>
+        <%= f.text_area :descripcion %>
+      </div>
+      <div class="form-group">
+        <%= f.label :comportamiento %>
+        <%= f.text_area :comportamiento %>
+      </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-   document.getElementById('animal_tipo_animal_personalizado').style.display = 'none';
+      <div class="form-group">
+        <%= f.label :sede_id, "Sede" %>
+        <%= f.collection_select :sede_id, @current_organizacion.sedes, :id, :nombre, { include_blank: 'Seleccione una Sede' } %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :vacunas %>
+        <%= f.text_area :vacunas %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :esterilizado, "¿Está esterilizado?" %>
+        <%= f.select :esterilizado, [['Sí', true], ['No', false]], { include_blank: 'Seleccione una opción' } %>
+      </div>
+      <%= f.fields_for :fotos do |foto| %>
+        <div class="form-group">
+          <%= foto.label :imagen, "Subir Imagen" %>
+          <%= foto.file_field :imagen %>
+        </div>
+        <div class="form-group">
+          <%= f.label :imagen2 %>
+          <%= foto.file_field :imagen2 %>
+        </div>
+        <div class="form-group">
+          <%= f.label :imagen3 %>
+          <%= foto.file_field :imagen3 %>
+        </div>
+        <%= f.submit %>
+      <% end %>
+    <% end %>
+    
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('animal_tipo_animal_personalizado').style.display = 'none';
   
-   });
+      document.getElementById('animal_tipo_animal').addEventListener('change', function() {
+        if (this.value === 'otro') { // Asegúrate de que sea 'otro' en minúsculas
+          document.getElementById('animal_tipo_animal_personalizado').style.display = 'block';
+        } else {
+          document.getElementById('animal_tipo_animal_personalizado').style.display = 'none';
+        }
+      });
+    });
+  </script>
   
-  document.getElementById('animal_tipo_animal').addEventListener('change', function() {
-   if (this.value === 'otro') {
-     document.getElementById('animal_tipo_animal_personalizado').style.display = 'block';
-   } else {
-     document.getElementById('animal_tipo_animal_personalizado').style.display = 'none';
-   }
-  });
-</script>
-  
+</body>
+</html>
