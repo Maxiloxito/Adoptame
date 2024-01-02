@@ -130,12 +130,18 @@
             width: 100%; 
             z-index: 10; 
         }
+        .sorting-form {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="wrapper">
         <div class="header">
             ¡Bienvenido a AdoptaMe!
+            
         </div>
         <div class="sidebar">
             <%= link_to (current_user.is_a?(Usuario) ? usuario_main_path : organizacion_main_path), style: "text-decoration: none; color: inherit" do %>
@@ -150,11 +156,26 @@
                 <%= button_to 'Crear publicación de adopción', new_animal_path, method: :get, class: "button" %>
                 <%= button_to 'Ver solicitudes de adopción', organizaciones_adopciones_path, method: :get, class: "button" %>
                 <%= button_to 'Gestionar Colectas', organizacione_colectas_path(current_user), method: :get, class: "button" %>
+                <%= button_to 'Gestionar Sedes', organizacione_sedes_path(current_user), method: :get, class: "button" %>
             <% end %>
         </div>
         <div class="content">
-          <% Animal.where.not(id: Adopcion.where(estado: 'Aceptado').select(:animal_id)).each do |animal| %>
-            <%= link_to animal_path(animal) do %>
+            <div class="sorting-form">
+                <%= form_with url: animals_path, method: :get, local: true, class: 'form-inline' do %>
+                <div class="form-group">
+                    <%= label_tag :ordenar_por, 'Ordenar por:', class: 'mr-2' %>
+                    <%= select_tag :ordenar_por, options_for_select([['Edad', 'edad']]), prompt: 'Ordenar por', class: 'form-control mr-2' %>
+                </div>
+                <div class="form-group">
+                    <%= label_tag :tipo_animal, 'Tipo de Animal:', class: 'mr-2' %>
+                    <%= select_tag :tipo_animal, options_for_select([['Todos', 'todos'], 'Perro', 'Gato', 'Conejo', 'Hámster', 'Pájaro', 'Pez', 'Tortuga', 'Cobaya', 'Iguana', 'Serpiente', 'otro']), prompt: 'Tipo de Animal', class: 'form-control mr-2' %>
+                </div>
+                <%= submit_tag 'Filtrar', class: 'btn btn-primary' %>
+                <% end %>
+            </div>
+    
+            <% @animals.each do |animal| %>
+                <%= link_to animal_path(animal) do %>
               <div class="card">
                 <% if animal.fotos.first&.imagen? %>
                   <%= image_tag animal.fotos.first.imagen.url, class: "animal-image" %>

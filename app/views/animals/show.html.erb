@@ -274,7 +274,9 @@
                 <li>Edad: <%= @animal.edad_age %> años y <%= @animal.edad_month %> meses</li>
                 <li>Color: <%= @animal.color %></li>
                 <li>Tipo de animal: <%= @animal.tipo_animal %></li>
-                <li>Sede: <%= @animal.sede&.nombre %></li>                
+                <li>Sede: <%= @animal.sede&.nombre %></li>
+                <li>Dirección: <%= @animal.sede&.direccion %></li>
+            
                 <li>Vacunas: 
                     <ul>
                     <% @animal.vacunas.split(',').each do |vacuna| %>

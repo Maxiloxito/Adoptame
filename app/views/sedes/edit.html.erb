@@ -1,33 +1,132 @@
-<div class="container">
-  <h1>Editar Sede</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Sede</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Baloo 2', cursive;
+            background-color: #f0f8ff;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #add8e6;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-weight: 700;
+        }
+        .container {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 500px;
+            width: 100%;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+        .button {
+            font-family: 'Baloo 2', cursive;
+            color: #fff;
+            background-color: #ff69b4;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+            width: 100%;
+        }
+        .button:hover {
+            background-color: #fc8da1;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+        #error_explanation {
+            color: red;
+            margin-bottom: 15px;
+        }
+        #error_explanation ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .footer {
+            background-color: #add8e6;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Editar Sede</h1>
+    </header>
 
-  <%= form_with(model: [@organizacion, @sede], url: organizacione_sede_path(@organizacion, @sede), local: true) do |f| %>
-    <% if f.object.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(f.object.errors.count, "error") %> impidieron que esta sede se guarde:</h2>
-        <ul>
-          <% f.object.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
+    <div class="container">
+        <div class="card">
+            <%= form_with(model: [@organizacion, @sede], url: organizacione_sede_path(@organizacion, @sede), local: true) do |f| %>
+                <% if f.object.errors.any? %>
+                    <div id="error_explanation">
+                        <h2><%= pluralize(f.object.errors.count, "error") %> impidieron que esta sede se guarde:</h2>
+                        <ul>
+                            <% f.object.errors.full_messages.each do |message| %>
+                                <li><%= message %></li>
+                            <% end %>
+                        </ul>
+                    </div>
+                <% end %>
 
-    <div class="form-group">
-      <%= f.label :nombre %>
-      <%= f.text_field :nombre %>
+                <div class="form-group">
+                    <%= f.label :nombre %>
+                    <%= f.text_field :nombre, class: 'form-control' %>
+                </div>
+
+                <div class="form-group">
+                    <%= f.label :direccion %>
+                    <%= f.text_field :direccion, class: 'form-control' %>
+                </div>
+
+                <div class="form-group">
+                    <%= f.label :numero_contacto %>
+                    <%= f.text_field :numero_contacto, class: 'form-control' %>
+                </div>
+
+                <%= f.submit "Actualizar Sede", class: "button" %>
+            <% end %>
+        </div>
     </div>
 
-    <div class="form-group">
-      <%= f.label :direccion %>
-      <%= f.text_field :direccion %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :numero_contacto %>
-      <%= f.text_field :numero_contacto %>
-    </div>
-
-    <%= f.submit "Actualizar Sede", class: "button" %>
-  <% end %>
-</div>
+    <footer class="footer">
+        <!-- Contenido del footer -->
+    </footer>
+</body>
+</html>

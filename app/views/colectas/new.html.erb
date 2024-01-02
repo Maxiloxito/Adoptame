@@ -1,49 +1,139 @@
-<!-- app/views/colectas/new.html.erb -->
-<h1>Crear Nueva Colecta</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Nueva Colecta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Baloo 2', cursive;
+            background-color: #f0f8ff;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #add8e6;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-weight: 700;
+        }
+        .container {
+            padding: 20px;
+        }
+        .my-2 {
+            margin-bottom: 20px;
+        }
+        .btn-custom {
+            font-family: 'Baloo 2', cursive;
+            color: #fff;
+            background-color: #ff69b4;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn-custom:hover {
+            background-color: #fc8da1;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+        .footer {
+            background-color: #add8e6;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            margin-top: auto;
+        }
+        .field {
+            margin-bottom: 15px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+        #error_explanation {
+            color: red;
+            margin-bottom: 15px;
+        }
+        #error_explanation ul {
+            list-style-type: none;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Crear Nueva Colecta</h1>
+    </header>
 
-<%= form_with(model: [@organizacion, @colecta], url: organizacione_colectas_path(@organizacion), local: true) do |form| %>  <% if @colecta.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@colecta.errors.count, "error") %> no permitieron que esta colecta se guardara:</h2>
+    <div class="container my-4">
+        <%= form_with(model: [@organizacion, @colecta], url: organizacione_colectas_path(@organizacion), local: true) do |form| %> 
+            <% if @colecta.errors.any? %>
+                <div id="error_explanation">
+                    <h2><%= pluralize(@colecta.errors.count, "error") %> no permitieron que esta colecta se guardara:</h2>
+                    <ul>
+                        <% @colecta.errors.full_messages.each do |message| %>
+                            <li><%= message %></li>
+                        <% end %>
+                    </ul>
+                </div>
+            <% end %>
 
-      <ul>
-        <% @colecta.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+            <div class="field">
+                <%= form.label :nombre, 'Nombre de la Colecta' %>
+                <%= form.text_field :nombre, class: 'form-control' %>
+            </div>
+
+            <div class="field">
+                <%= form.label :descripcion, 'Descripción' %>
+                <%= form.text_area :descripcion, class: 'form-control' %>
+            </div>
+
+            <div class="field">
+                <%= form.label :fecha_inicio, 'Fecha de Inicio' %>
+                <%= form.date_field :fecha_inicio, class: 'form-control', min: Date.today %>
+            </div>
+
+            <div class="field">
+                <%= form.label :fecha_fin, 'Fecha de Finalización' %>
+                <%= form.date_field :fecha_fin, class: 'form-control', min: Date.today %>
+            </div>
+
+            <div class="field">
+                <%= form.label :meta, 'Meta (Cantidad deseada a recaudar)' %>
+                <%= form.number_field :meta, step: 0.01, class: 'form-control', min: 0 %>
+            </div>
+
+            <div class="field">
+                <%= form.label :fondos_recaudados, 'Fondos Recaudados' %>
+                <%= form.number_field :fondos_recaudados, step: 0.01, class: 'form-control', value: 0 %>
+            </div>
+
+            <div class="actions">
+                <%= form.submit 'Crear Colecta', class: 'btn-custom' %>
+            </div>
         <% end %>
-      </ul>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= form.label :nombre, 'Nombre de la colecta' %>
-    <%= form.text_field :nombre %>
-  </div>
-
-  <div class="field">
-    <%= form.label :descripcion, 'Descripción' %>
-    <%= form.text_area :descripcion %>
-  </div>
-
-  <div class="field">
-    <%= form.label :fecha_inicio, 'Fecha de Inicio' %>
-    <%= form.date_field :fecha_inicio %>
-  </div>
-
-  <div class="field">
-    <%= form.label :fecha_fin, 'Fecha de Finalización' %>
-    <%= form.date_field :fecha_fin %>
-  </div>
-
-  <div class="field">
-    <%= form.label :meta, 'Meta (Cantidad deseada a recaudar)' %>
-    <%= form.number_field :meta, step: 0.01 %>
-  </div>
-
-  <div class="field">
-    <%= form.label :fondos_recaudados, 'Fondos Recaudados' %>
-    <%= form.number_field :fondos_recaudados, step: 0.01, value: @colecta.fondos_recaudados || 0 %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit 'Crear Colecta' %>
-  </div>
-<% end %>
+    <footer class="footer">
+        ❤️ Adopta con responsabilidad
+    </footer>
+</body>
+</html>

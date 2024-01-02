@@ -142,6 +142,7 @@
         <div class="sidebar">
             <%= link_to (current_user.is_a?(Usuario) ? usuario_main_path : organizacion_main_path), style: "text-decoration: none; color: inherit" do %>
                 <h2>AdoptaMe</h2>
+                
             <% end %>
             <button type="button" onclick="location.href='/animales'">Encuentra animales</button>
             <button type="button" onclick="location.href='/organizaciones'">Organizaciones</button>

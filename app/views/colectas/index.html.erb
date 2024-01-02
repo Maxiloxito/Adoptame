@@ -112,34 +112,38 @@
 
       <%= link_to 'Crear Nueva Colecta', new_organizacione_colecta_path(@organizacion), class: "btn-custom" %><br>
         
-      <% @colectas.each do |colecta| %>
-        <br><div class="my-2 p-3 border rounded shadow bg-white">
-          <h2><%= colecta.nombre %></h2>
-          <p><%= colecta.descripcion %></p>
-          <% fondos_recaudados = colecta.fondos_recaudados || 0 %>
-          <% meta = colecta.meta || 1 %>
-          <div class="progress my-2" style="height: 20px;">
-            <div class="progress-bar" id="progress-bar-<%= colecta.id %>" role="progressbar" 
-                style="width: <%= [fondos_recaudados / meta * 100, 100].min %>%;" 
-                aria-valuenow="<%= fondos_recaudados %>" 
-                aria-valuemin="0" 
-                aria-valuemax="<%= meta %>">
-                <%= number_to_percentage(fondos_recaudados / meta * 100, precision: 0) %>
+      <% if @colectas.present? %>
+        <% @colectas.each do |colecta| %>
+            <br><div class="my-2 p-3 border rounded shadow bg-white">
+            <h2><%= colecta.nombre %></h2>
+            <p><%= colecta.descripcion %></p>
+            <% fondos_recaudados = colecta.fondos_recaudados || 0 %>
+            <% meta = colecta.meta || 1 %>
+            <div class="progress my-2" style="height: 20px;">
+                <div class="progress-bar" id="progress-bar-<%= colecta.id %>" role="progressbar" 
+                    style="width: <%= [fondos_recaudados / meta * 100, 100].min %>%;" 
+                    aria-valuenow="<%= fondos_recaudados %>" 
+                    aria-valuemin="0" 
+                    aria-valuemax="<%= meta %>">
+                    <%= number_to_percentage(fondos_recaudados / meta * 100, precision: 0) %>
+                </div>
+            </div><br>
+            <%= link_to edit_organizacione_colecta_path(@organizacion, colecta), class: 'btn-custom btn-edit' do %>
+                <i class="fa fa-edit"></i> Editar
+            <% end %>
+            <%= link_to organizacione_colecta_path(@organizacion, colecta), method: :delete, data: { confirm: '¿Estás seguro?' }, class: 'btn-custom btn-delete' do %>
+                <i class="fa fa-trash-alt"></i> Eliminar
+            <% end %>
             </div>
-          </div><br>
-          <%= link_to edit_organizacione_colecta_path(@organizacion, colecta), class: 'btn-custom btn-edit' do %>
-            <i class="fa fa-edit"></i> Editar
-          <% end %>
-          <%= link_to organizacione_colecta_path(@organizacion, colecta), method: :delete, data: { confirm: '¿Estás seguro?' }, class: 'btn-custom btn-delete' do %>
-            <i class="fa fa-trash-alt"></i> Eliminar
-          <% end %>
-        </div>
-        <%= form_with(url: update_amount_organizacione_colecta_path(@organizacion, colecta), method: :patch) do |form| %>
-            <%= form.label :monto_a_sumar, 'Sumar a la colecta' %>
-            <%= form.number_field :monto_a_sumar, step: 0.01, class: 'form-control', min: 0 %>
-            <br><%= form.submit 'Agregar al Monto', class: 'btn-custom' %>
-        <% end %><br>
-    <% end %>
+            <%= form_with(url: update_amount_organizacione_colecta_path(@organizacion, colecta), method: :patch) do |form| %>
+                <%= form.label :monto_a_sumar, 'Sumar a la colecta' %>
+                <%= form.number_field :monto_a_sumar, step: 0.01, class: 'form-control', min: 0 %>
+                <br><%= form.submit 'Agregar al Monto', class: 'btn-custom' %>
+            <% end %><br>
+        <% end %>
+        <% else %>
+            <p>No hay colectas disponibles.</p>
+        <% end %>
     </div>
 
     <footer class="footer">

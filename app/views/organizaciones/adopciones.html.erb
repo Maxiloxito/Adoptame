@@ -170,6 +170,7 @@
                 <%= button_to 'Crear publicación de adopción', new_animal_path, method: :get, class: "button" %>
                 <%= button_to 'Ver solicitudes de adopción', organizaciones_adopciones_path, method: :get, class: "button" %>
                 <%= button_to 'Gestionar Colectas', organizacione_colectas_path(current_user), method: :get, class: "button" %>
+                <%= button_to 'Gestionar Sedes', organizacione_sedes_path(current_user), method: :get, class: "button" %>
             <% end %>
         </div>
 

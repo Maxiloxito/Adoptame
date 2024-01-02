@@ -4,7 +4,22 @@ class AnimalsController < ApplicationController
 
   def index
     @animals = Animal.where.not(id: Adopcion.where(estado: 'Aceptado').select(:animal_id))
+  
+    if params[:tipo_animal].present?
+      @animals = @animals.where(tipo_animal: params[:tipo_animal])
+    end
+  
+    case params[:ordenar_por]
+    when 'edad'
+      @animals = @animals.order(edad_age: :desc, edad_month: :desc)
+    when 'esterilizado'
+      @animals = @animals.order(esterilizado: :desc)
+    when 'raza'
+      @animals = @animals.order(raza: :asc)
+    end
   end
+  
+  
 
   def new
     @animal = Animal.new
