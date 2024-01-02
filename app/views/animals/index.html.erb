@@ -168,7 +168,7 @@
                 </div>
                 <div class="form-group">
                     <%= label_tag :tipo_animal, 'Tipo de Animal:', class: 'mr-2' %>
-                    <%= select_tag :tipo_animal, options_for_select([['Todos', 'todos'], 'Perro', 'Gato', 'Conejo', 'Hámster', 'Pájaro', 'Pez', 'Tortuga', 'Cobaya', 'Iguana', 'Serpiente', 'otro']), prompt: 'Tipo de Animal', class: 'form-control mr-2' %>
+                    <%= select_tag :tipo_animal, options_for_select(['Perro', 'Gato', 'Conejo', 'Hámster', 'Pájaro', 'Pez', 'Tortuga', 'Cobaya', 'Iguana', 'Serpiente', 'otro']), prompt: 'Tipo de Animal', class: 'form-control mr-2' %>
                 </div>
                 <%= submit_tag 'Filtrar', class: 'btn btn-primary' %>
                 <% end %>
